@@ -11,9 +11,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
 @AllArgsConstructor
-public class SurnameNonCommandProcessor implements NonCommandProcessor{
+public class SurnameNonCommandProcessor implements NonCommandProcessor {
   private final CacheService<OperationCacheRecord, Long> operationCacheService;
   private final CacheService<RegistrationTempDataCacheRecord, Long> registerCacheService;
+
   @Override
   public SendMessage process(Message message) {
     String surname = message.getText();

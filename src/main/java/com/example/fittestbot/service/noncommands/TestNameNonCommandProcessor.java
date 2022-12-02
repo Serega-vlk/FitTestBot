@@ -2,7 +2,6 @@ package com.example.fittestbot.service.noncommands;
 
 import com.example.fittestbot.cache.CacheService;
 import com.example.fittestbot.cache.records.OperationCacheRecord;
-import com.example.fittestbot.cache.records.QuestionRegistrationCacheRecord;
 import com.example.fittestbot.cache.records.TestRegistrationTempDataCacheRecord;
 import com.example.fittestbot.model.Operation;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
 @AllArgsConstructor
-public class TestNameNonCommandProcessor implements NonCommandProcessor{
+public class TestNameNonCommandProcessor implements NonCommandProcessor {
   private CacheService<TestRegistrationTempDataCacheRecord, Long> testCacheService;
   private CacheService<OperationCacheRecord, Long> operationCacheService;
 

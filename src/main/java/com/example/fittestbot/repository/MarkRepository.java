@@ -1,5 +1,6 @@
 package com.example.fittestbot.repository;
 
+import com.example.fittestbot.entity.Mark;
 import com.example.fittestbot.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-  List<User> findAll();
+public interface MarkRepository extends CrudRepository<Mark, Long> {
+  List<Mark> findAllByUser(User user);
 }

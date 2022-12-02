@@ -1,7 +1,6 @@
 package com.example.fittestbot.service.noncommands;
 
 import com.example.fittestbot.cache.CacheService;
-import com.example.fittestbot.cache.OperationCacheService;
 import com.example.fittestbot.cache.records.OperationCacheRecord;
 import com.example.fittestbot.model.Operation;
 import lombok.AllArgsConstructor;

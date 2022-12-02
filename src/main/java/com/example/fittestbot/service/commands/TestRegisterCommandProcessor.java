@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class TestRegisterCommandProcessor implements CommandProcessor{
+public class TestRegisterCommandProcessor implements CommandProcessor {
   private CacheService<OperationCacheRecord, Long> operationCacheService;
   private CacheService<TestRegistrationTempDataCacheRecord, Long> testCacheService;
   private UserRepository repository;
@@ -30,9 +30,9 @@ public class TestRegisterCommandProcessor implements CommandProcessor{
   @Override
   public SendMessage process(Message message) {
     Optional<User> user = repository.findById(message.getChatId());
-    if (user.isEmpty()){
+    if (user.isEmpty()) {
       return new SendMessage(String.valueOf(message.getChatId()), "Вас не зареестровано.\n/register");
-    } else if (user.get().getRole() != Role.ADMIN){
+    } else if (user.get().getRole() != Role.ADMIN) {
       return new SendMessage(String.valueOf(message.getChatId()), "У вас немає прав для створення тесту");
     }
     operationCacheService.createOrUpdate(message.getChatId(), new OperationCacheRecord(Operation.REGISTER_TEST_NAME));

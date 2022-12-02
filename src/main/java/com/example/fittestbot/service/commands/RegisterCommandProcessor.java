@@ -1,7 +1,6 @@
 package com.example.fittestbot.service.commands;
 
 import com.example.fittestbot.cache.CacheService;
-import com.example.fittestbot.cache.OperationCacheService;
 import com.example.fittestbot.cache.records.OperationCacheRecord;
 import com.example.fittestbot.cache.records.RegistrationTempDataCacheRecord;
 import com.example.fittestbot.entity.User;
@@ -24,7 +23,7 @@ public class RegisterCommandProcessor implements CommandProcessor {
   @Override
   public SendMessage process(Message message) {
     Optional<User> userMaybe = repository.findById(message.getChatId());
-    if (userMaybe.isPresent()){
+    if (userMaybe.isPresent()) {
       return new SendMessage(String.valueOf(message.getChatId()), "Вас вже зареєстрованно");
     }
     operationCacheService.createOrUpdate(message.getChatId(), new OperationCacheRecord(Operation.REGISTER_NAME));

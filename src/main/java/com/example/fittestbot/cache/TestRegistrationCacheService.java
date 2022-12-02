@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TestRegistrationCacheService implements CacheService<TestRegistrationTempDataCacheRecord, Long>{
+public class TestRegistrationCacheService implements CacheService<TestRegistrationTempDataCacheRecord, Long> {
   @Override
   @Cacheable(cacheNames = "testRegistrationCache", key = "#userId")
   public TestRegistrationTempDataCacheRecord get(Long userId) {

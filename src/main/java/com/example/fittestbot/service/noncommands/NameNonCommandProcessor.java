@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
 @AllArgsConstructor
-public class NameNonCommandProcessor implements NonCommandProcessor{
+public class NameNonCommandProcessor implements NonCommandProcessor {
   private final CacheService<OperationCacheRecord, Long> operationCacheService;
   private final CacheService<RegistrationTempDataCacheRecord, Long> registerCacheService;
 

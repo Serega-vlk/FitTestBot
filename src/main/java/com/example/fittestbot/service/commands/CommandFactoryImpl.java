@@ -18,7 +18,7 @@ public class CommandFactoryImpl implements CommandFactory {
 
   public SendMessage process(Message message) {
     Operation operation = operationCacheService.get(message.getChatId()).currentOperation();
-    if (operation != Operation.NONE){
+    if (operation != Operation.NONE) {
       return new SendMessage(String.valueOf(message.getChatId()), "Ця команда не доступна зараз");
     }
     String command = message.getText().replace("/", "");

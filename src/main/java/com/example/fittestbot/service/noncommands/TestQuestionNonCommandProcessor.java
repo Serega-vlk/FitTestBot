@@ -54,7 +54,7 @@ public class TestQuestionNonCommandProcessor implements NonCommandProcessor {
     String name = testCacheService.get(userId).name();
 
     Map<Question, List<Answer>> questionAnswersMap = testCacheService.get(userId).chapter();
-    if (questionAnswersMap.isEmpty()){
+    if (questionAnswersMap.isEmpty()) {
       return new SendMessage(String.valueOf(userId), "Ви не додали жодного питання до тесту.\n" +
           "Зареєструйте тест хоча б з одним питанням /registertest");
     }
