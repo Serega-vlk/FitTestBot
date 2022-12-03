@@ -4,19 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Entity(name = "question")
+@Entity(name = "answer")
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question {
+public class AnswerEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
@@ -25,8 +25,9 @@ public class Question {
   private String text;
 
   @NotNull
-  private Integer value;
+  private Boolean isCorrect;
 
-  @OneToMany
-  private List<Answer> answers;
+  @ManyToOne
+  @NotNull
+  private QuestionEntity question;
 }

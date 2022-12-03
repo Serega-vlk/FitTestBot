@@ -4,6 +4,8 @@ import com.example.fittestbot.cache.CacheService;
 import com.example.fittestbot.cache.records.OperationCacheRecord;
 import com.example.fittestbot.cache.records.QuestionRegistrationCacheRecord;
 import com.example.fittestbot.cache.records.TestRegistrationTempDataCacheRecord;
+import com.example.fittestbot.entity.AnswerEntity;
+import com.example.fittestbot.entity.QuestionEntity;
 import com.example.fittestbot.entity.Test;
 import com.example.fittestbot.model.Answer;
 import com.example.fittestbot.model.Operation;
@@ -14,6 +16,7 @@ import com.example.fittestbot.repository.TestRepository;
 import io.vavr.control.Try;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -31,6 +34,7 @@ public class TestQuestionNonCommandProcessor implements NonCommandProcessor {
   private CacheService<QuestionRegistrationCacheRecord, Long> questionCacheService;
 
   @Override
+  @Transactional
   public SendMessage process(Message message) {
     if (message.getText().equals("stop")) {
       operationCacheService.createOrUpdate(message.getChatId(), new OperationCacheRecord(Operation.NONE));
@@ -58,27 +62,21 @@ public class TestQuestionNonCommandProcessor implements NonCommandProcessor {
       return new SendMessage(String.valueOf(userId), "Ви не додали жодного питання до тесту.\n" +
           "Зареєструйте тест хоча б з одним питанням /registertest");
     }
-    List<com.example.fittestbot.entity.Question> questions = questionAnswersMap.entrySet().stream()
-        .map(question -> {
-          List<com.example.fittestbot.entity.Answer> answers = question.getValue().stream()
-              .map(answer -> com.example.fittestbot.entity.Answer.builder()
-                  .text(answer.getText())
-                  .isCorrect(answer.getIsCorrect())
-                  .build()
-              )
-              .map(answer -> answerRepository.save(answer))
-              .toList();
-          answerRepository.saveAll(answers);
-          return questionRepository.save(com.example.fittestbot.entity.Question.builder()
-              .value(question.getKey().getValue())
-              .text(question.getKey().getText())
-              .answers(answers)
-              .build());
-        }).toList();
-    testRepository.save(Test.builder()
+    Test test = testRepository.save(Test.builder()
         .name(name)
-        .questions(questions)
         .build());
+    questionAnswersMap.forEach((key, value) -> {
+      QuestionEntity entity = questionRepository.save(QuestionEntity.builder()
+          .value(key.getValue())
+          .text(key.getText())
+          .test(test)
+          .build());
+      value.forEach(answer -> answerRepository.save(AnswerEntity.builder()
+          .text(answer.getText())
+          .isCorrect(answer.getIsCorrect())
+          .question(entity)
+          .build()));
+    });
     return new SendMessage(String.valueOf(userId), "Тест успішно зареєстровано");
   }
 

@@ -11,6 +11,7 @@ import com.example.fittestbot.repository.TestRepository;
 import com.example.fittestbot.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -28,6 +29,7 @@ public class ChooseTestCommandProcessor implements CommandProcessor {
   private CacheService<OperationCacheRecord, Long> operationCacheService;
 
   @Override
+  @Transactional
   public SendMessage process(Message message) {
     Optional<User> user = userRepository.findById(message.getChatId());
     if (user.isEmpty()) {
@@ -56,6 +58,6 @@ public class ChooseTestCommandProcessor implements CommandProcessor {
 
   @Override
   public String getCommand() {
-    return "chooseTest";
+    return "choosetest";
   }
 }

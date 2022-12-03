@@ -1,6 +1,7 @@
 package com.example.fittestbot.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +27,6 @@ public class Test {
   @NotNull
   private String name;
 
-  @OneToMany
-  private List<Question> questions;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "test")
+  private List<QuestionEntity> questionEntities;
 }

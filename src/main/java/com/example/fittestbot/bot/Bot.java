@@ -43,6 +43,9 @@ public class Bot extends TelegramLongPollingBot {
 
   @Override
   public void onUpdateReceived(Update update) {
+    if (!update.hasCallbackQuery() && !update.hasMessage()){
+      return;
+    }
     setDefaultOperationIfEmpty(update);
     if (update.hasCallbackQuery()) {
       send(callbackQueryFactory.process(update.getCallbackQuery()));
