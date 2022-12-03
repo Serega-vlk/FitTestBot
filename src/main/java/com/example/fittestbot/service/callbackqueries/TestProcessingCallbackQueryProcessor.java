@@ -4,6 +4,8 @@ import com.example.fittestbot.cache.CacheService;
 import com.example.fittestbot.cache.records.OperationCacheRecord;
 import com.example.fittestbot.cache.records.TestProcessingCacheRecord;
 import com.example.fittestbot.entity.Mark;
+import com.example.fittestbot.entity.Test;
+import com.example.fittestbot.entity.User;
 import com.example.fittestbot.model.Answer;
 import com.example.fittestbot.model.Operation;
 import com.example.fittestbot.model.Question;
@@ -27,8 +29,6 @@ public class TestProcessingCallbackQueryProcessor implements CallbackQueryProces
   private CacheService<TestProcessingCacheRecord, Long> processingCacheService;
   private CacheService<OperationCacheRecord, Long> operationCache;
   private MarkRepository markRepository;
-  private UserRepository userRepository;
-  private TestRepository testRepository;
 
 
   @Override
@@ -42,8 +42,8 @@ public class TestProcessingCallbackQueryProcessor implements CallbackQueryProces
     if (map.isEmpty()) {
       operationCache.createOrUpdate(query.getMessage().getChatId(), new OperationCacheRecord(Operation.NONE));
       markRepository.save(Mark.builder()
-          .test(testRepository.findById(record.getTestId()).get())
-          .user(userRepository.findById(query.getMessage().getChatId()).get())
+          .test(Test.builder().id(record.getTestId()).build())
+          .user(User.builder().id(query.getMessage().getChatId()).build())
           .mark(record.getScore())
           .build());
       return new SendMessage(String.valueOf(query.getMessage().getChatId()),
