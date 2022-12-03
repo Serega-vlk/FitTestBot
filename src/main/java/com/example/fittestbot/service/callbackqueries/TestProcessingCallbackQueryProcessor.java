@@ -47,7 +47,7 @@ public class TestProcessingCallbackQueryProcessor implements CallbackQueryProces
           .mark(record.getScore())
           .build());
       return new SendMessage(String.valueOf(query.getMessage().getChatId()),
-          String.format("Тест завершено. Ваш результат: %d", record.getScore()));
+          String.format("Тест завершено. Ваш результат: %d/%d", record.getScore(), record.getTotal()));
     }
     Map.Entry<Question, List<Answer>> entry = map.entrySet().stream()
         .findFirst()

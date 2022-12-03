@@ -56,8 +56,9 @@ public class TestChooseCallbackQueryProcessor implements CallbackQueryProcessor 
                     .toList()
             )
         );
+    Integer total = map.keySet().stream().mapToInt(Question::getValue).sum();
     testProcessingCacheService.createOrUpdate(query.getMessage().getChatId(),
-        new TestProcessingCacheRecord(test.get().getId(), 0, map)
+        new TestProcessingCacheRecord(test.get().getId(), total, 0, map)
     );
     return answer;
   }

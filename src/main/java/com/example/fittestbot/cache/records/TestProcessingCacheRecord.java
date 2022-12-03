@@ -16,6 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class TestProcessingCacheRecord implements CacheRecord {
   private Long testId;
+  private Integer total;
   private Integer score;
   private Map<Question, List<Answer>> questionsRemaining;
 
