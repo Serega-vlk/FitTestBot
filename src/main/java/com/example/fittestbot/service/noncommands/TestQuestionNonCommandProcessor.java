@@ -62,8 +62,10 @@ public class TestQuestionNonCommandProcessor implements NonCommandProcessor {
       return new SendMessage(String.valueOf(userId), "Ви не додали жодного питання до тесту.\n" +
           "Зареєструйте тест хоча б з одним питанням /registertest");
     }
+    Integer total = questionAnswersMap.keySet().stream().mapToInt(Question::getValue).sum();
     Test test = testRepository.save(Test.builder()
         .name(name)
+        .total(total)
         .build());
     questionAnswersMap.forEach((key, value) -> {
       QuestionEntity entity = questionRepository.save(QuestionEntity.builder()

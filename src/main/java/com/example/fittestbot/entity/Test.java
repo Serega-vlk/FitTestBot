@@ -25,6 +25,9 @@ public class Test {
   private Long id;
 
   @NotNull
+  private Integer total;
+
+  @NotNull
   private String name;
 
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "test")

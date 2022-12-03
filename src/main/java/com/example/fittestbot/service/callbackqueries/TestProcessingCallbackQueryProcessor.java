@@ -10,8 +10,6 @@ import com.example.fittestbot.model.Answer;
 import com.example.fittestbot.model.Operation;
 import com.example.fittestbot.model.Question;
 import com.example.fittestbot.repository.MarkRepository;
-import com.example.fittestbot.repository.TestRepository;
-import com.example.fittestbot.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +62,7 @@ public class TestProcessingCallbackQueryProcessor implements CallbackQueryProces
             .callbackData(ans.getIsCorrect() ? String.valueOf(question.getValue()) : String.valueOf(0))
             .build())
         .toList();
-    markup.setKeyboard(List.of(buttons));
+    markup.setKeyboard(buttons.stream().map(List::of).toList());
     answer.setReplyMarkup(markup);
     return answer;
   }
