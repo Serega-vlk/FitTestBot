@@ -27,6 +27,7 @@ public class TestAnswersNonCommandProcessor implements NonCommandProcessor {
   public SendMessage process(Message message) {
     List<Answer> answers = Arrays.stream(message.getText().split("-"))
         .map(String::trim)
+        .filter(row -> !row.isEmpty())
         .map(ans -> new Answer(ans.replace("+", ""), ans.startsWith("+")))
         .toList();
     QuestionRegistrationCacheRecord questionRegistrationCacheRecord = questionCacheService.get(message.getChatId())

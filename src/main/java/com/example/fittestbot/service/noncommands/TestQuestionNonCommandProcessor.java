@@ -43,7 +43,7 @@ public class TestQuestionNonCommandProcessor implements NonCommandProcessor {
     String text = message.getText().split("-")[0].trim();
     Try<Integer> valueMaybe = Try.of(() -> message.getText().split("-")[1].trim())
         .map(Integer::parseInt);
-    if (valueMaybe.isFailure()) {
+    if (valueMaybe.isFailure() || text.isEmpty()) {
       return new SendMessage(String.valueOf(message.getChatId()), "Невірний формат. Спробуйте ще раз");
     }
     questionCacheService.createOrUpdate(message.getChatId(),
