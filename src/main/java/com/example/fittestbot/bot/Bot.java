@@ -7,6 +7,7 @@ import com.example.fittestbot.model.Operation;
 import com.example.fittestbot.service.callbackqueries.CallbackQueryFactory;
 import com.example.fittestbot.service.commands.CommandFactory;
 import com.example.fittestbot.service.noncommands.NonCommandsFactory;
+import com.example.fittestbot.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -84,7 +85,7 @@ public class Bot extends TelegramLongPollingBot {
     try {
       execute(sendMessage);
     } catch (TelegramApiException e) {
-      log.error("Cannot send message to {}", sendMessage.getChatId());
+      Log.error(String.format("Cannot send message to %s", sendMessage.getChatId()));
     }
   }
 }

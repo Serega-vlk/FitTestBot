@@ -31,7 +31,7 @@ public class DeleteTestCallbackQueryProcessor implements CallbackQueryProcessor 
   @Transactional
   public SendMessage process(CallbackQuery query) {
     Test test = testRepository.findById(Long.parseLong(query.getData())).get();
-    List<QuestionEntity> questionEntities = test.getQuestionEntities().stream().toList();
+    List<QuestionEntity> questionEntities = test.getQuestionEntities();
     List<AnswerEntity> answerEntities = questionEntities.stream()
         .flatMap(question -> question.getAnswerEntities().stream())
         .toList();
