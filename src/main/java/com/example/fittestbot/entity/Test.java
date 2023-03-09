@@ -10,18 +10,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "test")
 @Builder
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Test {
@@ -35,6 +30,6 @@ public class Test {
   @NotNull
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
-  private Set<QuestionEntity> questionEntities = new HashSet<>();
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "test")
+  private List<QuestionEntity> questionEntities;
 }
