@@ -1,5 +1,6 @@
 package com.example.fittestbot.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class AnswerEntity {
   @NotNull
   private Boolean isCorrect;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @NotNull
   private QuestionEntity question;
 }

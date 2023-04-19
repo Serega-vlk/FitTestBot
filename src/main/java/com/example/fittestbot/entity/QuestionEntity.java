@@ -1,5 +1,6 @@
 package com.example.fittestbot.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class QuestionEntity {
   @NotNull
   private Integer value;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
   private List<AnswerEntity> answerEntities;
 
   @ManyToOne
