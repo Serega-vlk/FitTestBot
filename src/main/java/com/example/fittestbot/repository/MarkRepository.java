@@ -12,5 +12,6 @@ import java.util.List;
 @Repository
 public interface MarkRepository extends CrudRepository<Mark, Long> {
   List<Mark> findAllByUser(User user);
+  List<Mark> findAllByTest(Test test);
   void deleteByTest(@NotNull Test test);
 }

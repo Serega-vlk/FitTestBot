@@ -2,6 +2,7 @@ package com.example.fittestbot.exception;
 
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -26,5 +27,11 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> dataBase(SQLException throwables){
     return ResponseEntity.status(500)
         .body(throwables.getMessage());
+  }
+
+  @ExceptionHandler(MissingRequestHeaderException.class)
+  public ResponseEntity<String> header(MissingRequestHeaderException throwables){
+    return ResponseEntity.status(400)
+        .body("Header 'id' is not presented");
   }
 }
