@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<String> denied(){
     return ResponseEntity.status(403)
-        .body("You have no permissions to add test");
+        .body("You have no permissions");
   }
 
   @ExceptionHandler(NotFoundException.class)
