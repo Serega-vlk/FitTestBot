@@ -21,7 +21,8 @@ public class Marks {
   @NoArgsConstructor
   @Builder
   public static class Mark {
-    String username;
+    String name;
+    String surname;
     String group;
     Integer mark;
   }
